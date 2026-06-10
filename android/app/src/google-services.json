@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "577090324207",
+    "firebase_url": "https://mawaddah-matrimony.firebaseio.com",
+    "project_id": "mawaddah-matrimony",
+    "storage_bucket": "mawaddah-matrimony.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577090324207:android:1b23ba9e07f85eb2",
+        "android_client_info": {
+          "package_name": "app.mawaddah.matrimony"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577090324207-j45go362cgif9qg0gpa562kc8ih2sb6q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaY31eVGnI5CwpSoiJgWM1qxtLF61H0mE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577090324207-j45go362cgif9qg0gpa562kc8ih2sb6q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "577090324207-uicjcsnlsfdcbiovqqmcalr5ulmr27hv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.mawaddah.matrimony",
+                "app_store_id": "1397246644"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

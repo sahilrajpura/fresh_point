@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "841257963436",
+    "project_id": "fresh-mart-909ee",
+    "storage_bucket": "fresh-mart-909ee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841257963436:android:853be6a31624c0a83d7409",
+        "android_client_info": {
+          "package_name": "mz.fresh.mart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdSZHeB3ApVxZB2dVj_tiASwgNR-r8uhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841257963436:android:5cb8bdb4160ceae63d7409",
+        "android_client_info": {
+          "package_name": "mz.fresh.mart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdSZHeB3ApVxZB2dVj_tiASwgNR-r8uhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
