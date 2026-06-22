@@ -7,6 +7,7 @@ import 'package:fresh_point/utility/toaster_message.dart';
 import 'package:get/get.dart';
 
 class PolicyController extends GetxController {
+  // Variables
   RxBool isLoading = false.obs;
   RxString pageContent = ''.obs;
 

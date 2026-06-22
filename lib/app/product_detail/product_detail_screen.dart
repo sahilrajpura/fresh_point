@@ -19,7 +19,7 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final ProductDetailController controller = Get.put(ProductDetailController());
 
-  // HomeController
+  // HomeController Import
   final HomeController homeController = Get.find<HomeController>();
 
   @override
@@ -311,7 +311,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.height / 37.8),
       child: Obx(() {
-
         final qty = controller.localQty.value;
 
         return Row(
@@ -367,7 +366,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     // Plus Button — sirf local update, no API
                     GestureDetector(
                       onTap: () {
-
                         controller.updateQtyLocal(productId, qty + 1);
                       },
                       child: Container(

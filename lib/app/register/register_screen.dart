@@ -77,6 +77,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: Get.height / 75.6,
                     ),
+
+                    // Location Drop Down
                     Obx(
                       () => LocationCommonDropdown(
                         hintText: 'select_village'.tr,

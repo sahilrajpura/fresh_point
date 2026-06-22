@@ -1244,7 +1244,7 @@ Widget topBar(HomeController controller) {
           children: [
             GestureDetector(
               onTap: () {
-                Get.toNamed(AppRouter.deliveryDashboard);
+                // Get.toNamed(AppRouter.deliveryDashboard);
               },
               child: Text(
                 'greeting'.tr,

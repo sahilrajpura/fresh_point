@@ -18,7 +18,7 @@ class CartController extends GetxController {
   RxDouble deliveryCharge = 30.0.obs;
   final Map<int, double> _productTotals = {};
 
-  // Cached fees - API se ek baar fetch hogi
+  // Cached fees
   double _fee1 = 0.0;
   double _fee2 = 0.0;
   double _fee3 = 0.0;
@@ -32,7 +32,6 @@ class CartController extends GetxController {
     fetchCart();
 
     ever(homeController.cartQtyMap, (_) {
-      // FIX 1: isLoading guard - fetch complete thay pachhi j sync karo
       if (!isLoading.value) {
         syncCartLocal();
       }
@@ -55,7 +54,6 @@ class CartController extends GetxController {
       }
     }
 
-    // 0 quantity wale items remove karo
     cartList.removeWhere((item) {
       final String productId = item['pro_id']?.toString() ?? item['id']?.toString() ?? '';
       return homeController.getQty(productId) == 0;
@@ -88,7 +86,6 @@ class CartController extends GetxController {
       if (response.statusCode == 200 && responseData['status'] == 'success') {
         cartList.value = List<Map<String, dynamic>>.from(responseData['data']);
         calculateTotal();
-        // FIX 2: pehle fees cache karo, phir slab check karo
         await _fetchAndCacheFees();
         _updateDeliveryChargeLocal();
       }
@@ -99,7 +96,6 @@ class CartController extends GetxController {
     }
   }
 
-  // Fees API se fetch karke cache karo
   Future<void> _fetchAndCacheFees() async {
     try {
       final response = await ApiServices.getPublicAuth(Environment.siteData);
@@ -118,7 +114,6 @@ class CartController extends GetxController {
     }
   }
 
-  // Local slab check - API call nahi, cached fees use karo
   void _updateDeliveryChargeLocal() {
     final amount = productTotal.value;
     if (amount < 100) {
@@ -173,7 +168,6 @@ class CartController extends GetxController {
     if (isLoading.value) return;
 
     try {
-      // Fees loaded nahi hoy to pehle fetch karo
       if (_fee1 == 0.0) {
         await _fetchAndCacheFees();
         _updateDeliveryChargeLocal();
@@ -238,7 +232,6 @@ class CartController extends GetxController {
   }
 
   // Calculate Total
-
   void calculateTotal() {
     _productTotals.clear();
     double total = 0;
@@ -256,7 +249,6 @@ class CartController extends GetxController {
   void updateTotal(int index, double value) {
     _productTotals[index] = value;
     productTotal.value = _productTotals.values.fold(0.0, (sum, item) => sum + item);
-    // Slab check karo locally - API call nahi, cached fees use karo
     _updateDeliveryChargeLocal();
   }
 

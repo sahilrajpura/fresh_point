@@ -161,8 +161,7 @@ class OrderDetailScreen extends StatelessWidget {
   }
 }
 
-//  Shimmer Widgets ─
-
+//  Shimmer Widgets
 Widget shimmerBox({double? height, double? width, double radius = 8}) {
   return Shimmer.fromColors(
     baseColor: Colors.grey.shade300,
@@ -400,7 +399,7 @@ class OrderTracker extends StatelessWidget {
   }
 }
 
-//  Cart Note Section ──
+//  Cart Note Section
 Widget cartNoteSection({
   required String paymentMethod,
   required String deliveryDate,
@@ -524,7 +523,7 @@ Widget cartNoteSection({
   );
 }
 
-//  Card Bill Summary ──
+//  Card Bill Summary
 Widget cartBillSummary({
   required double productTotal,
   required double deliveryCharge,
@@ -588,7 +587,7 @@ Widget cartBillSummary({
   );
 }
 
-//  Bill Row ──
+//  Bill Row
 Widget billRow(String title, double value, {bool isBold = false}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 5),
@@ -618,7 +617,7 @@ Widget billRow(String title, double value, {bool isBold = false}) {
   );
 }
 
-//  Order Product Card ─
+//  Order Product Card
 Widget orderProductCard(OrderDetailController controller) {
   // All products from API
   final List products = controller.orderDetail['order_detail_data'] ?? [];
@@ -661,7 +660,7 @@ Widget orderProductCard(OrderDetailController controller) {
         ),
         child: Column(
           children: [
-            // ── Top Section: Image + Details ──
+            //  Top Section: Image + Details
             Padding(
               padding: EdgeInsets.all(Get.height / 63),
               child: Row(
@@ -794,7 +793,7 @@ Widget orderProductCard(OrderDetailController controller) {
               ),
             ),
 
-            // ── Bottom Section: Price Details (only if adjust data) ──
+            //  Bottom Section: Price Details (only if adjust data)
             if (hasAdjust || hasAdjustPrice) ...[
               Divider(height: 1, color: shade200),
               Padding(
@@ -815,7 +814,7 @@ Widget orderProductCard(OrderDetailController controller) {
               ),
             ],
 
-            // ── Kul (Total) Row ──
+            // Total) Row
             Container(
               decoration: BoxDecoration(
                 border: Border(top: BorderSide(color: shade200)),
@@ -856,7 +855,7 @@ Widget orderProductCard(OrderDetailController controller) {
   );
 }
 
-//  Price Row ─
+//  Price Row
 Widget priceRow(String title, String value) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 3),

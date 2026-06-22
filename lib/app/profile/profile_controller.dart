@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
+  // Variables
   RxString userName = ''.obs;
   RxString mobileNumber = ''.obs;
   RxBool isLoading = false.obs;

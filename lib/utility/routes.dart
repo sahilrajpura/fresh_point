@@ -1,4 +1,5 @@
 import 'package:fresh_point/app/cart/cart_screen.dart';
+import 'package:fresh_point/app/delivery_boy/dashboard/dashboard_controller.dart';
 import 'package:fresh_point/app/delivery_boy/dashboard/dashboard_screen.dart';
 import 'package:fresh_point/app/delivery_boy/pending_order/pending_order_screen.dart';
 import 'package:fresh_point/app/home/home_screen.dart';
@@ -84,8 +85,13 @@ class AppRouter {
     ),
 
     GetPage(
-      name: deliveryDashboard,
-      page: () => deliveryDashboardScreen(),
+      name: AppRouter.deliveryDashboard,
+      page: () => const DashboardScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<DashboardController>(
+          () => DashboardController(),
+        );
+      }),
     ),
     GetPage(
       name: pendingOrders,

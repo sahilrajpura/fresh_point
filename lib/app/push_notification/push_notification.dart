@@ -14,7 +14,7 @@ RemoteMessage? pendingNotification;
 // Handle notification tap in background or terminated state
 Future<void> handleBackgroundMessage(RemoteMessage? message) async {
   if (message == null) return;
-  print('Notification tapped (background/terminated): ${message.notification?.title}');
+
   handleMessage(message);
 }
 
@@ -22,7 +22,7 @@ Future<void> handleBackgroundMessage(RemoteMessage? message) async {
 void handleMessage(RemoteMessage? message) async {
   if (message == null) return;
   var mapData = message.data;
-  print('Notification tapped, mapData: $mapData');
+
   // :large_yellow_circle: If HomeController not ready yet, store for later
 }
 
@@ -42,7 +42,7 @@ class PushNotificationFirebase {
       badge: true,
       carPlay: true,
     );
-    print('Notification permission status: ${settings.authorizationStatus}');
+
     await initPushNotifications();
     await initLocalNotification();
   }
@@ -52,7 +52,6 @@ class PushNotificationFirebase {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final fcmToken = await firebaseMessaging.getToken();
     pref.setString('fcmTkn', fcmToken.toString());
-    print('FCM Token: $fcmToken');
     var androidSettings = const AndroidInitializationSettings('@mipmap/ic_launcher');
     var iosSettings = const DarwinInitializationSettings(
       requestSoundPermission: true,
@@ -77,14 +76,13 @@ class PushNotificationFirebase {
     // Terminated state tap handler
     RemoteMessage? initialMessage = await firebaseMessaging.getInitialMessage();
     if (initialMessage != null) {
-      print('App launched from terminated by notification tap');
       handleMessage(initialMessage);
     }
     // Foreground message handler (no navigation)
     FirebaseMessaging.onMessage.listen((message) {
       if (message.notification == null) return;
       var mapData = message.data;
-      print('Foreground message received, data: $mapData');
+
       if (mapData.containsKey('status_message')) {
         if (mapData['status_message'] == 'Force Out') {
           Get.dialog(

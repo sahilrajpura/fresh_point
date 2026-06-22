@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:fresh_point/app/home/home_controller.dart';
+import 'package:fresh_point/app/delivery_boy/dashboard/dashboard_controller.dart';
 import 'package:fresh_point/utility/common.dart';
 import 'package:fresh_point/utility/routes.dart';
 import 'package:fresh_point/utility/theme.dart';
 import 'package:get/get.dart';
 
-class deliveryDashboardScreen extends StatelessWidget {
-  const deliveryDashboardScreen({super.key});
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     // homecontoller import
-    final HomeController homeController = Get.find<HomeController>();
+    final controller = Get.find<DashboardController>();
 
     return BackgroundScaffold(
       child: Padding(
@@ -21,7 +21,7 @@ class deliveryDashboardScreen extends StatelessWidget {
         child: ListView(
           children: [
             // User Info
-            UserInfo(homeController: homeController),
+            UserInfo(controller: controller),
 
             // Order List
             SizedBox(
@@ -286,37 +286,38 @@ class Orderlist extends StatelessWidget {
 class UserInfo extends StatelessWidget {
   const UserInfo({
     super.key,
-    required this.homeController,
+    required this.controller,
   });
 
-  final HomeController homeController;
+  final DashboardController controller;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'greeting'.tr,
-          style: TextStyle(
-            fontSize: Get.height / 54,
-            fontWeight: FontWeight.w300,
-            color: shade300,
-            fontFamily: 'Urbanist',
+    return Obx(
+      () => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'greeting'.tr,
+            style: TextStyle(
+              fontSize: Get.height / 54,
+              fontWeight: FontWeight.w300,
+              color: shade300,
+            ),
           ),
-        ),
 
-        SizedBox(height: Get.height / 151.2),
-        Text(
-          homeController.userData['user_name'] ?? '',
-          style: TextStyle(
-            fontSize: Get.height / 54,
-            fontWeight: FontWeight.w700,
-            color: dark,
-            fontFamily: 'Urbanist',
+          SizedBox(height: Get.height / 151.2),
+
+          Text(
+            controller.userData['user_name'] ?? '',
+            style: TextStyle(
+              fontSize: Get.height / 54,
+              fontWeight: FontWeight.w700,
+              color: dark,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

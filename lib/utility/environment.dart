@@ -19,6 +19,7 @@ class Environment {
   static const String getOrders = '${baseUrl}user_api/get_order_list';
   static const String orderDetail = '${baseUrl}user_api/order_detail';
   static const String searchProduct = '${baseUrl}product_api/search_product';
+  static const String deliveryboy = '${baseUrl}user_api/get_order_list_delivery';
 
   // Android Version Code (Force Update) Old 45
   static const int ANDROID_VERSION_CODE = 46;

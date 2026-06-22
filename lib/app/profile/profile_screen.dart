@@ -16,8 +16,10 @@ import 'package:url_launcher/url_launcher.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
+  // Controller Import
   final settingController = Get.put(SettingListController());
   final profileController = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
     return BackToHomeWrapper(
@@ -103,7 +105,6 @@ class FacilitiesSection extends StatelessWidget {
         FacilityTile(
           icon: Icons.share_outlined,
           title: 'share_app'.tr,
-          // onTap: () => shareApp(ProfileController()),
           onTap: () => shareApp(Get.find<ProfileController>()),
         ),
 
@@ -179,7 +180,7 @@ class FacilityTile extends StatelessWidget {
   }
 }
 
-//Person Info
+// Person Info
 Widget personInfo(ProfileController controller) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: Get.height / 18.09),

@@ -7,6 +7,7 @@ import 'package:fresh_point/utility/toaster_message.dart';
 import 'package:get/get.dart';
 
 class AdminController extends GetxController {
+  // Variables
   RxBool isLoading = false.obs;
   RxMap<String, dynamic> adminData = <String, dynamic>{}.obs;
 
@@ -16,6 +17,7 @@ class AdminController extends GetxController {
     super.onInit();
   }
 
+  // Fetch Admin Data
   Future<void> fetchAdminData() async {
     isLoading.value = true;
 

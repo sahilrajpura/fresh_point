@@ -22,6 +22,7 @@ class FilterDropdown extends StatelessWidget {
           // Top Bar
           TopBar(),
 
+          // Area Selection
           AreaSelection(),
           AreaSelection(),
         ],

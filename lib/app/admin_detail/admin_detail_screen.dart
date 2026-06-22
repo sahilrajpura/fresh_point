@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class AdminContactModel extends StatelessWidget {
   AdminContactModel({super.key});
 
+  // Controller Import
   final controller = Get.put(AdminController());
 
   @override
@@ -83,6 +84,7 @@ class AdminContactModel extends StatelessWidget {
   }
 }
 
+// Admin Contact Shimmer
 Widget adminContactShimmer() {
   return Container(
     decoration: BoxDecoration(

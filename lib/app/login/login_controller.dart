@@ -118,7 +118,7 @@ class LoginController extends GetxController {
           // Go to home page
           Get.offAllNamed(AppRouter.home);
         } else {
-          // Go to delivery boy deliveryDashboard
+          // Go to delivery boy dashboard
           Get.offAllNamed(AppRouter.deliveryDashboard);
         }
         clear();

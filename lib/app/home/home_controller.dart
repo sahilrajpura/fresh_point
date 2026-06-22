@@ -61,7 +61,6 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // Pehle local load, phir server sync
     loadCartQtyMap().then((_) {
       fetchCartFromServer();
     });
@@ -186,16 +185,17 @@ class HomeController extends GetxController {
 
   // Load Home Data
   Future<void> loadHomeData() async {
-    isLoading.value = true; // ek j vaari true
+    isLoading.value = true;
     isPageLoading.value = true;
     await fetchUserData();
     await fetchCartFromServer();
     await fetchProductsVeg();
     await fetchProductsfruites();
-    isLoading.value = false; // ek j vaari false
+    isLoading.value = false;
     isPageLoading.value = false;
   }
 
+  // Fetch User Data
   Future<void> fetchUserData() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -331,7 +331,7 @@ class HomeController extends GetxController {
         final List cartItems = responseData['data'] ?? [];
 
         for (var item in cartItems) {
-          String productId = item['pro_id'].toString(); // ← product_id → pro_id
+          String productId = item['pro_id'].toString();
           int qty = int.tryParse(item['quantity'].toString()) ?? 0;
           if (qty > 0) {
             cartQtyMap[productId] = qty;
@@ -468,10 +468,8 @@ class HomeController extends GetxController {
   // Search Api
   Future<void> searchProducts(String keyword) async {
     try {
-      // TEXT SAVE
       searchText.value = keyword;
 
-      // EMPTY SEARCH
       if (keyword.trim().isEmpty) {
         searchProductList.clear();
 
@@ -484,13 +482,9 @@ class HomeController extends GetxController {
 
       final params = {
         "user_agent": "EI-AAPP",
-
         "page_number": "1",
-
         "limit_per_page": "50",
-
         "order_by": "ASC",
-
         "search": keyword,
       };
 
@@ -503,12 +497,11 @@ class HomeController extends GetxController {
       final responseData = jsonDecode(response.body);
 
       if (response.statusCode == 200 && responseData['status'] == 'success') {
-        // API DATA
         final List<Map<String, dynamic>> allProducts = List<Map<String, dynamic>>.from(
           responseData['data'],
         );
 
-        // LOCAL FILTER
+        // Local Filter
         final filteredProducts = allProducts.where((product) {
           final name = product['product_name']?.toString().toLowerCase() ?? '';
 
@@ -517,7 +510,6 @@ class HomeController extends GetxController {
           );
         }).toList();
 
-        // FINAL DATA
         searchProductList.value = filteredProducts;
       } else {
         searchProductList.clear();

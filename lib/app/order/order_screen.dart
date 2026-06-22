@@ -40,7 +40,6 @@ class OrderScreen extends StatelessWidget {
                 // Top Bar
                 topBar(),
 
-                // Expanded(child: orderEmptyScreen()),
                 Expanded(
                   child: Obx(() {
                     if (controller.isLoading.value) {
@@ -92,6 +91,7 @@ class OrderScreen extends StatelessWidget {
   }
 }
 
+// Shimmer List
 Widget shimmerList() {
   return ListView.builder(
     itemCount: 5,
@@ -335,6 +335,7 @@ Widget orderEmptyScreen() {
   );
 }
 
+// Order Shimmer Card
 Widget orderShimmerCard() {
   return Padding(
     padding: EdgeInsets.symmetric(
