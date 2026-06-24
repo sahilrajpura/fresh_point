@@ -31,6 +31,8 @@ class HomeController extends GetxController {
 
   RxMap<String, int> cartQtyMap = <String, int>{}.obs;
 
+  RxList<Map<String, dynamic>> offerList = <Map<String, dynamic>>[].obs;
+
   var offerCurrentIndex = 0.obs;
   late PageController offerPageController;
   Timer? offerTimer;
@@ -70,7 +72,16 @@ class HomeController extends GetxController {
     offerPageController = PageController();
 
     offerTimer = Timer.periodic(Duration(seconds: 3), (timer) {
-      offerCurrentIndex.value = (offerCurrentIndex.value + 1) % 3;
+      // offerCurrentIndex.value = (offerCurrentIndex.value + 1) % 3;
+      if (offerList.isNotEmpty) {
+        offerCurrentIndex.value = (offerCurrentIndex.value + 1) % offerList.length;
+
+        offerPageController.animateToPage(
+          offerCurrentIndex.value,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
 
       offerPageController.animateToPage(
         offerCurrentIndex.value,
@@ -191,6 +202,7 @@ class HomeController extends GetxController {
     await fetchCartFromServer();
     await fetchProductsVeg();
     await fetchProductsfruites();
+    await fetchOffers();
     isLoading.value = false;
     isPageLoading.value = false;
   }
@@ -518,6 +530,40 @@ class HomeController extends GetxController {
       debugPrint("Search Error: $e");
 
       searchProductList.clear();
+    }
+  }
+
+  // Fetch offer List
+
+  Future<void> fetchOffers() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? tokenUser = prefs.getString('token');
+
+      final params = {
+        "user_agent": "EI-AAPP",
+      };
+
+      final response = await ApiServices.postPublicAuthToken(
+        Environment.offerList,
+        params,
+        tokenUser!,
+      );
+
+      final responseData = jsonDecode(response.body);
+
+      if (response.statusCode == 200 && responseData['status'] == 'success') {
+        offerList.value =
+            List<Map<String, dynamic>>.from(
+                  responseData['data'],
+                )
+                .where(
+                  (e) => e['offer_type'] == 'W' || e['offer_type'] == 'M' || e['offer_type'] == 'P', // ← yeh add karo
+                )
+                .toList();
+      }
+    } catch (e) {
+      debugPrint("Offer Error: $e");
     }
   }
 }

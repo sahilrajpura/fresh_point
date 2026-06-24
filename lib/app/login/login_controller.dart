@@ -113,14 +113,9 @@ class LoginController extends GetxController {
 
         toasterMessage(responseData['message'], primary);
 
-        // Route conditionally based on response user or admin
-        if (responseData['data']['user_type'].toString() == 'W') {
-          // Go to home page
-          Get.offAllNamed(AppRouter.home);
-        } else {
-          // Go to delivery boy dashboard
-          Get.offAllNamed(AppRouter.deliveryDashboard);
-        }
+        // Go to home page
+        Get.offAllNamed(AppRouter.home);
+
         clear();
       } else {
         toasterMessage(responseData['message'], error);

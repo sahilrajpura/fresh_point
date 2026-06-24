@@ -477,13 +477,13 @@ Widget offerBannerSlider(HomeController controller) {
     return Column(
       children: [
         SizedBox(
-          height: Get.height / 4.44,
+          height: Get.height / 4.34,
           child: PageView.builder(
             controller: controller.offerPageController,
-            itemCount: 3,
+            itemCount: controller.offerList.length,
             onPageChanged: controller.onOfferPageChanged,
             itemBuilder: (context, index) {
-              return offerBanner(index);
+              return offerBanner(controller.offerList[index], index);
             },
           ),
         ),
@@ -495,7 +495,7 @@ Widget offerBannerSlider(HomeController controller) {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            3,
+            controller.offerList.length,
             (index) => AnimatedContainer(
               duration: Duration(milliseconds: 300),
               margin: EdgeInsets.symmetric(
@@ -518,12 +518,35 @@ Widget offerBannerSlider(HomeController controller) {
 }
 
 // Offer Banner
-Widget offerBanner(int index) {
-  final List<String> bannerTexts = [
-    'લીંબુ પૌષ્ટિક છે. તે તમારી ત્વચા માટે ફાયદાકારક છે.',
-    'તાજી શાકભાજી રોજ ખાઓ અને સ્વસ્થ રહો.',
-    'ફળો ખાવાથી શરીરને જરૂરી વિટામિન્સ મળે છે.',
+Widget offerBanner(
+  Map<String, dynamic> offer,
+  int index,
+) {
+  final String offerType = offer['offer_type']?.toString() ?? '';
+  final String minAmount = offer['min_amount']?.toString() ?? '';
+
+  final String productName = offer['product_name']?.toString() ?? '';
+  final String unitNumber = offer['unit_number']?.toString() ?? '';
+  final String productImage = offer['product_image']?.toString() ?? '';
+
+  final String offerTitle = offer['product_or_service_name']?.toString() ?? '';
+  final String offerImage = offer['offer_image_full']?.toString() ?? '';
+
+  final String imageUrl = offerType == 'P' ? productImage : offerImage;
+
+  final String bannerText = offerType == 'P'
+      ? 'Rs.$minAmount અથવા વધારે ની ખરીદી પર..\n$productName ($unitNumber)'
+      : 'Rs.$minAmount અથવા વધારે ની ખરીદી પર..\n$offerTitle';
+
+  final List<Color> bgColors = [
+    orange.withValues(alpha: 0.2),
+    Colors.lightBlue.withValues(alpha: 0.2),
+    Colors.green.withValues(alpha: 0.15),
+    Colors.purple.withValues(alpha: 0.15),
+    Colors.pink.withValues(alpha: 0.15),
   ];
+
+  final Color bgColor = bgColors[index % bgColors.length];
 
   return Padding(
     padding: EdgeInsets.symmetric(
@@ -533,13 +556,7 @@ Widget offerBanner(int index) {
       height: Get.height / 5.04,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: index == 1
-            ? Colors.lightBlue.withValues(
-                alpha: 0.2,
-              )
-            : orange.withValues(
-                alpha: 0.2,
-              ),
+        color: bgColor,
         borderRadius: BorderRadius.circular(
           Get.height / 75.6,
         ),
@@ -595,23 +612,43 @@ Widget offerBanner(int index) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Stack(
+                    clipBehavior: Clip.none,
                     children: [
-                      Image.asset(
-                        'assets/images/Pepper.png',
-                        width: Get.height / 4.2,
-                        opacity: AlwaysStoppedAnimation(0.1),
-                      ),
-                      Positioned(
-                        top: 20,
-                        left: 0,
-                        right: 0,
-                        child: Text(
-                          bannerTexts[index],
-                          style: TextStyle(
-                            fontSize: Get.height / 63,
-                            fontWeight: FontWeight.w400,
-                            color: dark,
-                            fontFamily: 'Urbanist',
+                      if (imageUrl.isNotEmpty)
+                        Opacity(
+                          opacity: 0.1,
+                          child: CachedNetworkImage(
+                            imageUrl: imageUrl,
+                            width: Get.height / 4.2,
+                            fit: BoxFit.contain,
+                            placeholder: (context, url) => SizedBox(
+                              width: Get.height / 4.2,
+                            ),
+                            errorWidget: (context, url, err) => SizedBox(
+                              width: Get.height / 4.2,
+                            ),
+                          ),
+                        ),
+                      Positioned.fill(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: Get.height / 94.5,
+                            right: Get.height / 75.6,
+                          ),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              bannerText,
+                              style: TextStyle(
+                                fontSize: Get.height / 63,
+                                fontWeight: FontWeight.w400,
+                                color: dark,
+                                fontFamily: 'Urbanist',
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
